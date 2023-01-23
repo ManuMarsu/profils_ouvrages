@@ -6,57 +6,31 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>931</width>
-    <height>300</height>
+    <width>926</width>
+    <height>309</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Profils ouvrages</string>
   </property>
-  <widget class="QDialogButtonBox" name="button_box">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>240</y>
-     <width>341</width>
-     <height>32</height>
-    </rect>
-   </property>
-   <property name="orientation">
-    <enum>Qt::Horizontal</enum>
-   </property>
-   <property name="standardButtons">
-    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-   </property>
-  </widget>
   <widget class="QPushButton" name="pb_selec_dossier_profils">
    <property name="geometry">
     <rect>
-     <x>50</x>
+     <x>120</x>
      <y>30</y>
      <width>301</width>
      <height>23</height>
     </rect>
    </property>
    <property name="text">
-    <string>Sélectionner dossier contenant les profils au format PDF</string>
+    <string>Convertir des PDF en images</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="le_dossier_profils_pdf">
    <property name="geometry">
     <rect>
-     <x>360</x>
+     <x>430</x>
      <y>30</y>
-     <width>431</width>
-     <height>20</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="le_couche_dessin">
-   <property name="geometry">
-    <rect>
-     <x>360</x>
-     <y>80</y>
      <width>431</width>
      <height>20</height>
     </rect>
@@ -65,7 +39,7 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>50</x>
+     <x>120</x>
      <y>80</y>
      <width>301</width>
      <height>16</height>
@@ -81,60 +55,135 @@
   <widget class="QPushButton" name="pb_extraire_distcote">
    <property name="geometry">
     <rect>
-     <x>54</x>
-     <y>130</y>
+     <x>130</x>
+     <y>190</y>
      <width>291</width>
-     <height>23</height>
+     <height>61</height>
     </rect>
    </property>
    <property name="text">
-    <string>Extraire les couples (distance, cote) dans ce dossier :</string>
+    <string>Extraire les couples (distance, cote)</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="le_dossier_couple_distance_cote">
+  <widget class="QPlainTextEdit" name="plainTextEdit">
    <property name="geometry">
     <rect>
-     <x>360</x>
-     <y>130</y>
+     <x>433</x>
+     <y>190</y>
      <width>431</width>
-     <height>20</height>
+     <height>61</height>
     </rect>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+   <property name="plainText">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="cb_liste_couches">
+   <property name="geometry">
+    <rect>
+     <x>430</x>
+     <y>80</y>
+     <width>211</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="cb_liste_champs">
+   <property name="geometry">
+    <rect>
+     <x>430</x>
+     <y>120</y>
+     <width>211</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>120</y>
+     <width>301</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Nom du champ identifiant chaque profil :</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pb_update">
+   <property name="geometry">
+    <rect>
+     <x>700</x>
+     <y>80</y>
+     <width>91</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Actualiser la 
+liste des 
+couches</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>70</y>
+     <width>21</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 75 20pt &quot;Arial&quot;;
+color: rgb(239, 119, 87);</string>
+   </property>
+   <property name="text">
+    <string>1</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>110</y>
+     <width>21</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 75 20pt &quot;Arial&quot;;
+color: rgb(239, 119, 87);</string>
+   </property>
+   <property name="text">
+    <string>2</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_5">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>190</y>
+     <width>21</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 75 20pt &quot;Arial&quot;;
+color: rgb(239, 119, 87);</string>
+   </property>
+   <property name="text">
+    <string>3</string>
    </property>
   </widget>
  </widget>
  <resources/>
- <connections>
-  <connection>
-   <sender>button_box</sender>
-   <signal>accepted()</signal>
-   <receiver>ProfilsOuvragesDialogBase</receiver>
-   <slot>accept()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>button_box</sender>
-   <signal>rejected()</signal>
-   <receiver>ProfilsOuvragesDialogBase</receiver>
-   <slot>reject()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

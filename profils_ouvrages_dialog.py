@@ -22,10 +22,12 @@
  ***************************************************************************/
 """
 
-import os
+import os, subprocess
 
 from qgis.PyQt import uic
 from qgis.PyQt import QtWidgets
+from qgis.PyQt.QtWidgets import QFileDialog
+from qgis.core import QgsProject, QgsMapLayer
 
 # This loads your .ui file so that PyQt can populate your plugin with the elements from Qt Designer
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
@@ -42,3 +44,58 @@ class ProfilsOuvragesDialog(QtWidgets.QDialog, FORM_CLASS):
         # http://qt-project.org/doc/qt-4.8/designer-using-a-ui-file.html
         # #widgets-and-dialogs-with-auto-connect
         self.setupUi(self)
+
+        self.pb_selec_dossier_profils.clicked.connect(self.convert_pdf_to_png)
+        self.pb_extraire_distcote.clicked.connect(self.extraire_distcote)
+        self.cb_liste_couches.currentIndexChanged.connect(self.init_cb_champs)
+        self.pb_update.clicked.connect(self.init_combo_box)
+
+        self.nom_dossier = "C:/"
+        self.le_dossier_profils_pdf.setVisible(False)
+        self.pb_selec_dossier_profils.setVisible(False)
+
+
+        self.init_combo_box()
+
+    def init_combo_box(self):
+        # Cette fonction permet d'initialiser la combobox cb_liste_couches avec les couches présentes dans le projet QGIS
+
+        liste_couches_vectorielles = QgsProject.instance().mapLayers().values()
+        self.cb_liste_couches.currentIndexChanged.disconnect(self.init_cb_champs)
+        self.cb_liste_couches.clear()
+        self.cb_liste_couches.currentIndexChanged.connect(self.init_cb_champs)
+        self.cb_liste_couches.addItems([layer.name() for layer in liste_couches_vectorielles if layer.type() == QgsMapLayer.VectorLayer])
+
+    def init_cb_champs(self):
+        # Cette fonction permet d'initialiser la combobox cb_liste_champs avec les champs présents dans la couche sélectionnée dans la combobox cb_liste_couches
+
+        self.cb_liste_champs.clear()
+        self.cb_liste_champs.addItems([field.name() for field in QgsProject.instance().mapLayersByName(self.cb_liste_couches.currentText())[0].fields()])
+
+    
+    def convert_pdf_to_png(self):
+        # Cette fonction permet à l'utilisateur de sélectionner un dossier contenant des fichiers pdf et de convertir ces fichiers en png
+
+        self.nom_dossier = QFileDialog.getExistingDirectory(self, "Sélectionner un dossier contenant des fichiers pdf", "C:/", QtWidgets.QFileDialog.ShowDirsOnly)
+        self.le_dossier_profils_pdf.setText(self.nom_dossier)
+
+        for filename in os.listdir(self.nom_dossier):
+            if filename.endswith(".pdf"):
+                PDFTOPPM_PATH = os.path.join(os.path.dirname(__file__),'poppler-22.12.0','Library','bin','pdftoppm.exe')
+                PDFFILE = os.path.join(self.nom_dossier, f'{filename[:-4]}.pdf')
+                subprocess.Popen(f'"%s" -png "%s" {filename[:-4]}' % (PDFTOPPM_PATH, PDFFILE))
+    
+    def extraire_distcote(self):
+        self.nom_dossier_export = QFileDialog.getExistingDirectory(self, "Sélectionner un dossier dans lequel sauvegarder les exports", self.nom_dossier)
+        nom_couche_qgis = self.cb_liste_couches.currentText()
+        couche_qgis = QgsProject.instance().mapLayersByName(nom_couche_qgis)[0]
+        try:
+            for feature in couche_qgis.getFeatures():
+                geom = feature.geometry()
+                with open(os.path.join(self.nom_dossier_export, f"{feature[self.cb_liste_champs.currentText()]}.txt"), 'w') as f:
+                    f.write(geom.asWkt().replace('MultiLineString ((', '').replace(', ', '\n').replace('))', ''))
+            self.plainTextEdit.setPlainText(f"{couche_qgis.featureCount()} fichiers ont été exportés dans le dossier :\n{self.nom_dossier_export}")
+        except Exception as e:
+            self.plainTextEdit.setPlainText(f"Erreur lors de l'export des fichiers : {e}")
+
+
