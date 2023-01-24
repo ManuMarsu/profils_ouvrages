@@ -1,32 +1,13 @@
-Plugin Builder Results
+Utilisation de Qgis pour saisir les profils d’ouvrages
+Le 24/01/2023 par M. Collongues
 
-Your plugin ProfilsOuvrages was created in:
-    F:/03_BacASable/Python/ProfilsOuvrages\profils_ouvrages
+Objectif
+Dans un processus de modélisation hydraulique, la saisie des profils correspondant aux ouvrages est un passage obligé, bien souvent chronophage, surtout quand les ouvrages sont complexes. 
+La méthode décrite ci-après propose une manière de faire beaucoup plus visuelle, qui limite les saisies manuelles des couples (distance, cote), en utilisant le géoréférenceur de Qgis. 
+Les principales étape sont les suivantes :
+1-	Conversion en image 
+2-	Géoréférencement de l’image
+3-	Dessin des profils
+4-	Extraction automatique des couples (distance, cote)
 
-Your QGIS plugin directory is located at:
-    C:/Users/manuel.collongues/AppData/Roaming/QGIS/QGIS3/profiles/default/python/plugins
-
-What's Next:
-
-  * Copy the entire directory containing your new plugin to the QGIS plugin
-    directory
-
-  * Compile the resources file using pyrcc5
-
-  * Run the tests (``make test``)
-
-  * Test the plugin by enabling it in the QGIS plugin manager
-
-  * Customize it by editing the implementation file: ``profils_ouvrages.py``
-
-  * Create your own custom icon, replacing the default icon.png
-
-  * Modify your user interface by opening ProfilsOuvrages_dialog_base.ui in Qt Designer
-
-  * You can use the Makefile to compile your Ui and resource files when
-    you make changes. This requires GNU make (gmake)
-
-For more information, see the PyQGIS Developer Cookbook at:
-http://www.qgis.org/pyqgis-cookbook/index.html
-
-(C) 2011-2018 GeoApt LLC - geoapt.com
+Le détail des étapes ci-dessus est décrit dans le document NoticeQgisCommeSaisieProfils.pdf
