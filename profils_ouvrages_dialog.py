@@ -93,6 +93,7 @@ class ProfilsOuvragesDialog(QtWidgets.QDialog, FORM_CLASS):
             for feature in couche_qgis.getFeatures():
                 geom = feature.geometry()
                 with open(os.path.join(self.nom_dossier_export, f"{feature[self.cb_liste_champs.currentText()]}.txt"), 'w') as f:
+                    f.write("Distance Cote\n")
                     f.write(geom.asWkt().replace('MultiLineString ((', '').replace(', ', '\n').replace('))', ''))
             self.plainTextEdit.setPlainText(f"{couche_qgis.featureCount()} fichiers ont été exportés dans le dossier :\n{self.nom_dossier_export}")
         except Exception as e:
